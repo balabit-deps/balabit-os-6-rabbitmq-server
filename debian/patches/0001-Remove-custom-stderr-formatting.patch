@@ -1,0 +1,43 @@
+From b5c84387e80a64b220414c7d58fb8162719c69f0 Mon Sep 17 00:00:00 2001
+From: Alexey Lebedeff <alebedev@mirantis.com>
+Date: Fri, 12 Feb 2016 17:19:32 +0300
+Subject: [PATCH] Remove custom stderr formatting
+Bug-Ubuntu: https://launchpad.net/bugs/1634989
+
+Opening several ports for single fd is considered undefined behaviour in
+erlang. It's safe to replace this whole function with `io:format` when
+erlang 17 or later is used. Because writing to standard_error with
+io:format is synchronous - after this call has returned data was
+definitely sent to the port. And `erlang:halt/` guarantees that this
+data will be flushed afterwards.
+---
+ src/rabbit_misc.erl | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
+
+diff --git a/src/rabbit_misc.erl b/src/rabbit_misc.erl
+index b744137..35e5c10 100644
+--- a/src/rabbit_misc.erl
++++ b/src/rabbit_misc.erl
+@@ -655,18 +655,7 @@ format_many(List) ->
+     lists:flatten([io_lib:format(F ++ "~n", A) || {F, A} <- List]).
+ 
+ format_stderr(Fmt, Args) ->
+-    case os:type() of
+-        {unix, _} ->
+-            Port = open_port({fd, 0, 2}, [out]),
+-            port_command(Port, io_lib:format(Fmt, Args)),
+-            port_close(Port);
+-        {win32, _} ->
+-            %% stderr on Windows is buffered and I can't figure out a
+-            %% way to trigger a fflush(stderr) in Erlang. So rather
+-            %% than risk losing output we write to stdout instead,
+-            %% which appears to be unbuffered.
+-            io:format(Fmt, Args)
+-    end,
++    io:format(standard_error, Fmt, Args),
+     ok.
+ 
+ unfold(Fun, Init) ->
+-- 
+2.10.2
+
