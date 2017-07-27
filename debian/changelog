@@ -1,3 +1,14 @@
+rabbitmq-server (3.5.7-1ubuntu0.16.04.2) xenial-security; urgency=medium
+
+  * SECURITY UPDATE: authentication bypass (LP: #1706900)
+    - debian/patches/CVE-2016-9877.patch: fix password check in
+      plugins-src/rabbitmq-mqtt/src/rabbit_mqtt_processor.erl, add test to
+      plugins-src/rabbitmq-mqtt/test/src/com/rabbitmq/mqtt/test/MqttTest.java,
+      fix URL in plugins-src/rabbitmq-mqtt/test/Makefile.
+    - CVE-2016-9877
+
+ -- Marc Deslauriers <marc.deslauriers@ubuntu.com>  Thu, 27 Jul 2017 14:36:17 -0400
+
 rabbitmq-server (3.5.7-1ubuntu0.16.04.1) xenial; urgency=medium
 
   * debian/patches/0001-Remove-custom-stderr-formatting.patch: [PATCH]
