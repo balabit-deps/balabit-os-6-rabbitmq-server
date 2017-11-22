@@ -23,7 +23,6 @@ Package: rabbitmq-server
 Architecture: all
 Depends: adduser,
          erlang-nox (>= 1:13.b.3) | esl-erlang,
-         logrotate,
          ${misc:Depends}
 Description: AMQP server written in Erlang
  RabbitMQ is an implementation of AMQP, the emerging standard for high
