@@ -1,3 +1,9 @@
+rabbitmq-server (3.5.7-1ubuntu0.16.04.2bb1) xenial; urgency=medium
+
+  * Balabit patched version
+
+ -- Balabit Platform Team <devnull@dev.null>  Thu, 23 Nov 2017 14:06:07 +0000
+
 rabbitmq-server (3.5.7-1ubuntu0.16.04.2) xenial-security; urgency=medium
 
   * SECURITY UPDATE: authentication bypass (LP: #1706900)
