@@ -1,3 +1,23 @@
+rabbitmq-server (3.5.7-1ubuntu0.16.04.4) xenial; urgency=medium
+
+  * d/rabbitmq-server.service:
+    - add TimeoutStartSec, Restart, RestartSec parameters (LP: #1874075)
+
+ -- Matthew Ruffell <matthew.ruffell@canonical.com>  Mon, 29 Jun 2020 15:43:21 +1200
+
+rabbitmq-server (3.5.7-1ubuntu0.16.04.3) xenial; urgency=medium
+
+  * Fix timeout discrepancy between SysV and systemd (LP: #1874075)
+    upstream, rabbitmq-server-release - 694540270c8
+  * d/rabbitmq-server.init
+    - Add RABBITMQ_STARTUP_TIMEOUT and default to 600
+  * d/rabbitmq-env.conf
+    - Default TimeoutStartSec to 600
+  * d/rabbitmq-server-wait
+    - Use value of RABBITMQ_STARTUP_TIMEOUT in wait
+
+ -- Nicolas Bock <nicolas.bock@canonical.com>  Wed, 22 Apr 2020 22:02:31 +0000
+
 rabbitmq-server (3.5.7-1ubuntu0.16.04.2) xenial-security; urgency=medium
 
   * SECURITY UPDATE: authentication bypass (LP: #1706900)
